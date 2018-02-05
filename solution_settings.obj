@@ -1,0 +1,6 @@
+i18nDataSource:"db:/svy_framework/i18n_messages",
+modulesNames:"svy_mod_dialogs,svy_utilities,svy_nav_globals",
+onOpenMethodID:"B1D97999-3D3D-4850-99CD-981AA44C1F45",
+titleText:"i18n:svy.fr.lbl.login",
+typeid:43,
+uuid:"5D6CC1D0-C05A-4B26-8E73-8465412AB57D"
