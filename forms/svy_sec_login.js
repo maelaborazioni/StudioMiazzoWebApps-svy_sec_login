@@ -181,13 +181,9 @@ function login()
 	else	
 	{
 		if(_return.error)
-		{
-			elements.error.text = i18n.getI18NMessage(_return.error)
-		}
+		   elements.error.text = i18n.getI18NMessage(_return.error)
 		else
-		{
-			elements.error.text = i18n.getI18NMessage('svy.fr.dlg.loginfailed')
-		}
+		   elements.error.text = i18n.getI18NMessage('svy.fr.dlg.loginfailed')
 	}
 	return;
 }
@@ -229,8 +225,8 @@ function onShow()
 		return;
 	}
 	elements.fld_userName.requestFocus(false);
-	
-	}
+		
+}
 
 /**
  * On focus gained password, empty error message
@@ -279,6 +275,7 @@ function onLoad(event)
 {
 	var _solutionLoadedBefore = application.getUserProperty(application.getSolutionName() + '_loaded')
 	application.setUserProperty(application.getSolutionName() + '_loaded','1')
+	
 	/** @type {String} */
 	var _windowSize = security.authenticate('svy_sec_authenticate','svy_sec_getWindowSize', [vFramework_db])
 	var _forceWindowSize = security.authenticate('svy_sec_authenticate','svy_sec_getForcedWindowSize', [vFramework_db])
@@ -294,37 +291,10 @@ function onLoad(event)
 		plugins.window.createShortcut('CAPS_LOCK',forms.svy_sec_login.capslockPressed, 'svy_sec_login');
 	}
 	
-	//set autologin key in developer
-	if(application.isInDeveloper())
-	{
-		plugins.window.createShortcut('alt L',forms.svy_sec_login.autoLoginDeveloper, 'svy_sec_login')
-	}
+//	//set autologin key in developer
+//	if(application.isInDeveloper())
+//	   plugins.window.createShortcut('control right',forms.svy_sec_login.autoLoginDeveloper, 'svy_sec_login')
 	
-	// MAVariazione - usa il metodo personalizzato in ma_sec_login
-//	//retrieve the owner_id and db-servernames from the deeplink - will not work in developer
-//	if(globals.svy_sec_l_startArg)
-//	{
-//		var _args = globals.svy_sec_l_startArg.split("|");
-//
-//		var _owner_id = _args[0];
-//		vUser_db = _args[1];
-//		vFramework_db = _args[2];
-//
-//		application.output('Owner Id' + _owner_id,LOGGINGLEVEL.WARNING)
-//		
-//		var _owner = security.authenticate('svy_sec_authenticate','svy_sec_getOwnerName',[_owner_id, vFramework_db])
-//		if(_owner)
-//		{
-//			vOwner = _owner
-//		}
-//		application.output('Owner ' + _owner,LOGGINGLEVEL.WARNING)
-//		if(vOwner) // if owner is known, don't allow selection
-//		{
-//			elements.fld_owner.enabled = false
-//		}
-//	}
-	
-
 	//hide organization fields
 	elements.lbl_organization.visible = false
 	elements.fld_organization.visible = false
@@ -332,7 +302,6 @@ function onLoad(event)
 	//remove toolbars
 	application.setToolbarVisible('text',false)
 	application.setToolbarVisible('edit',false)
-	
 	
 }
 
@@ -342,12 +311,26 @@ function onLoad(event)
 function autoLoginDeveloper() {
 	if(application.isInDeveloper())
 	{
-		vUsername = 'superuser'
-		vPassword = 'superuser'
-		vOwner = 'Servoy'
+//		vUsername = 'superuser'
+//		vPassword = 'superuser'
+//		vOwner = 'Servoy'
+
+		vUsername = 'ASSISTENZA';
+		vPassword = '165';
+//		vUsername = 'PETTINATURA';
+//		vPassword = 'PETTINATURA_6520';
+		vOwner = 'PETTINATURA LANE SPA';
+		
+//		vUsername = 'Virgi';
+//		vPassword = 'Mae165vm';
+//		vOwner = 'MA';
+
+//        vUsername = 'Giovanni';
+//		vPassword = '165';
+//		vOwner = 'M.A.Elaborazioni';
+
 		login();
 	}
-	
 }
 
 /**
@@ -355,10 +338,15 @@ function autoLoginDeveloper() {
  * @param {Object} [_newValue]
  * @properties={typeid:24,uuid:"24117749-D86F-46FC-9AFF-114073E6B954"}
  */
-function loginWithOrganization(_oldValue, _newValue) {
+function loginWithOrganization(_oldValue, _newValue) 
+{
+    // save user name
+	application.setUserProperty(application.getSolutionName() +'.username',vUsername);
+	globals.svy_sec_lgn_organization_id = vOrganization;
+	// save owner name
+	application.setUserProperty(application.getSolutionName() +'.ownername',vOwner);
 	// save organization id
 	application.setUserProperty(application.getSolutionName() +'.organization',vOrganization);
-	globals.svy_sec_lgn_organization_id = vOrganization;
 		
 	// login
 	var _user_org_id = security.authenticate('svy_sec_authenticate', 'svy_sec_login', [vUsername, vUser_id, vOrganization, vFramework_db]);
@@ -373,14 +361,6 @@ function loginWithOrganization(_oldValue, _newValue) {
 	
 	return false;
 }
-
-// WARN - MAVariazione - Rimosso per esecuzione unit test
-///**
-// * @properties={typeid:24,uuid:"09F4EF23-01B1-4913-8194-3F4173329CA5"}
-// */
-//function testLoginDeeplink() {
-//	security.logout('sampleuse_navigation','svy_sec_openLink','cf0df836-ddf4-4ecd-8b8e-b602d4f8303c');
-//}
 
 /**
  * Callback method when form is resized.
