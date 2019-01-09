@@ -215,6 +215,7 @@ function onShow()
 	
 	if (!vOwner) {
 		vOwner = application.getUserProperty(application.getSolutionName() +'.ownername'); 
+		
 	}
 	var userName = application.getUserProperty(application.getSolutionName() +'.username');
 	
@@ -321,13 +322,28 @@ function autoLoginDeveloper() {
 //		vPassword = 'PETTINATURA_6520';
 		vOwner = 'PETTINATURA LANE SPA';
 		
-//		vUsername = 'Virgi';
-//		vPassword = 'Mae165vm';
-//		vOwner = 'MA';
-
-//        vUsername = 'Giovanni';
-//		vPassword = '165';
-//		vOwner = 'M.A.Elaborazioni';
+//		vOwner = 'GESTIONE LAVORAZIONI LOGISTICA'
+		
+//		vUsername = 'DCRLSU84H52G190W';
+//		vPassword = 'RESP';
+//		vOwner = 'BIO C BON';
+		
+//		vUsername = 'Erica';
+//		vPassword = 'Mae165ed'
+//		vOwner = 'MA'
+//		vOrganization = 'IT'
+		
+//		vUsername = 'DEMO';
+//		vPassword = 'DEMODEMO';
+//		vOwner = 'DEMO';
+		
+//		vUsername = 'BIOCBON'
+//		vPassword = 'BIO_6329'	
+//		vOwner = 'BIO C BON'
+		
+      vUsername = 'Giovanni';
+		vPassword = '165';
+		vOwner = 'M.A.Elaborazioni';
 
 		login();
 	}
